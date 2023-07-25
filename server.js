@@ -16,22 +16,19 @@ const routes = require("./routes/routes")
 const app = express()
 
 // server configuations
-const port = ServerConfig.port
+const port = process.env.PORT || ServerConfig.port;
 
 // cross origin issue
 const allowedOrigins = [
-  "http://example1.com",
-  "http://example2.com",
   "http://localhost:3000",
-  "https://next-base-template.vercel.app",
-  "https://musiur.vercel.app",
+  "http://ovigo.net"
 ]
-
-app.use(
-  cors({
-    origin: allowedOrigins,
-  })
-)
+app.use(cors())
+// app.use(
+//   cors({
+//     origin: allowedOrigins,
+//   })
+// )
 
 // parser
 app.use(bodyParser.urlencoded({ extended: true }))
