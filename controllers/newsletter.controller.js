@@ -18,7 +18,7 @@ exports.email = async (req, res) => {
       })
     }
 
-    Mail(email, "You have successfully subscribed to Ovigo newsletter!")
+    // Mail(email, "You have successfully subscribed to Ovigo newsletter!")
 
     res.status(200).send({
       message: "You have successfully subscribed to Ovigo newsletter!",
