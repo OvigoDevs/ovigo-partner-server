@@ -16,19 +16,19 @@ const routes = require("./routes/routes")
 const app = express()
 
 // server configuations
-const port = ServerConfig.port
+const port = process.env.PORT || ServerConfig.port;
 
 // cross origin issue
 const allowedOrigins = [
   "http://localhost:3000",
   "http://ovigo.net"
 ]
-
-app.use(
-  cors({
-    origin: allowedOrigins,
-  })
-)
+app.use(cors())
+// app.use(
+//   cors({
+//     origin: allowedOrigins,
+//   })
+// )
 
 // parser
 app.use(bodyParser.urlencoded({ extended: true }))
