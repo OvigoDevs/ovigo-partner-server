@@ -49,7 +49,7 @@ exports.signin = async (req, res) => {
 // user signup controller
 exports.signup = async (req, res) => {
   try {
-    const { contactDetails, email, password } = req.body
+    const { email, password } = req.body
 
     // Check if user with the same email already exists
     const existingUser = await UserModel.findOne({ email })
@@ -59,12 +59,12 @@ exports.signup = async (req, res) => {
         .send({ message: "User with this email already exists" })
     }
 
-    //   Create new user
+    // Create hased pass
+    const hashdedPass = bcrypt.hashSync(password, 8);
+
+    //  Create new user
     const user = await UserModel.create({
-      email,
-      contactDetails,
-      password: bcrypt.hashSync(password, 8),
-      verifiedStatus: true,
+      ...req.body, password: hashdedPass,
     })
 
     // Generate JWT token

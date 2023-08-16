@@ -22,65 +22,9 @@ exports.getHotels = async (req, res) => {
 // Create Hotel
 exports.createHotel = async (req, res) => {
   try {
-    const {
-      serviceId,
-      verifiedStatus,
-      serviceType,
-      hotelType,
-      thumbnail,
-      hotelLocation,
-      hotelName,
-      startRatingOfHotel,
-      propertyManagementCompany,
-      managementCompanyName,
-      popularFacilities,
-      breakfast,
-      breakfastInfo,
-      parking,
-      parkingCost,
-      languages,
-      checkIn,
-      checkOut,
-      childrenPolicy,
-      petPolicy,
-      petCost,
-      creditCard,
-      nameInInvoice,
-      invoiceAddress,
-      reviews,
-      reservations,
-      rooms,
-    } = req.body
+    console.log(req.body.rooms.at(0).roomData)
 
-    const newHotel = await HotelModel.create({
-      serviceId,
-      verifiedStatus,
-      serviceType,
-      hotelType,
-      thumbnail,
-      hotelLocation,
-      hotelName,
-      startRatingOfHotel,
-      propertyManagementCompany,
-      managementCompanyName,
-      popularFacilities,
-      breakfast,
-      breakfastInfo,
-      parking,
-      parkingCost,
-      languages,
-      checkIn,
-      checkOut,
-      childrenPolicy,
-      petPolicy,
-      petCost,
-      creditCard,
-      nameInInvoice,
-      invoiceAddress,
-      reviews,
-      reservations,
-      rooms,
-    })
+    const newHotel = await HotelModel.create({ serviceId: 0, ...req.body })
 
     if (newHotel) {
       res.status(200).send({ message: "Created.", newHotel })

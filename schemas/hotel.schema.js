@@ -1,73 +1,89 @@
 const mongoose = require("mongoose")
 
 const hotelSchema = new mongoose.Schema({
-  serviceId: { type: String, required: true, unique: true }, // user email can be same, an unique id will be the identifier
-  verifiedStatus: { type: Boolean},
-  serviceType: { type: String, required: false },
-  hotelType: { type: String, required: false },
-  thumbnail: { type: String, required: false },
-  hotelLocation: {
-    country: { type: String, required: false },
-    streetAddress: { type: String, required: false },
-    zipCode: { type: Number, required: false },
-    city: { type: String, required: false },
+  serviceId: { type: Number, required: true, unique: true },
+  breakfastDetails: {
+    breakfastTypes: [{ type: String, required: false }],
+    priceIncluded: { type: String, required: true },
+    pricePerPersonAndDay: { type: String, required: false },
+    serveToGuest: { type: String, required: false },
   },
-  hotelName: { type: String, required: false },
-  startRatingOfHotel: { type: Number, required: false },
-  propertyManagementCompany: { type: Boolean, required: false },
-  managementCompanyName: { type: String, required: false }, // propertyManagementCompany true
-  popularFacilities: [{ type: String, required: false }],
-  breakfast: { type: Boolean, required: false },
-  breakfastInfo: {
-    includedInPrice: { type: Boolean, required: false }, // breackfast true
-    pricePerPersonPerDay: { type: Number, required: false },
-    breakfastType: [{ type: String, required: false }], // includedInPrice false
+  hotelAddress: {
+    city: { type: String, required: true },
+    country: { type: String, required: true },
+    streetAddress: { type: String, required: true },
+    zipCode: { type: String, required: true },
   },
-  parking: { type: Boolean, required: false },
-  parkingCost: { type: Number, required: false }, // parking true
-  languages: [{ type: String, required: false }],
-  checkIn: { type: String, required: false },
-  checkOut: { type: String, required: false },
-  childrenPolicy: { type: String, required: false },
-  petPolicy: { type: Boolean, required: false },
-  petCost: { type: Number, required: false },
-  creditCard: { type: Boolean, required: false },
-  nameInInvoice: { type: String, required: false },
-  invoiceAddress: { type: String, required: false },
-  reviews: {type: [String], required: false},
-  reservations: {type: [String], required: false},
+  hotelCategories: {
+    id: { type: Number, required: true },
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+  },
+  hotelInformation: {
+    propertyName: { type: String, required: true },
+    propertyManagementEntity: { type: String, required: true },
+    managementEntityName: { type: String, required: true },
+    hotelRating: { type: String, required: true },
+  },
+  houseRules: {
+    petFee: { type: String, required: true },
+    allowChildren: { type: String, required: true },
+    allowPet: { type: String, required: true },
+    checkinfrom: { type: String, required: true },
+    checkoutfrom: { type: String, required: true },
+    checkoutuntil: { type: String, required: true },
+    checkinuntil: { type: String, required: true },
+  },
+  noOfHotels: {
+    id: { type: String, required: true },
+    text: { type: String, required: true },
+  },
+  parkingDetails: {
+    available: { type: String, required: true },
+    located: { type: String, required: true },
+    reserve: { type: String, required: true },
+    type: { type: String, required: true },
+  },
+  popularFacilities: [{ type: String, required: true }],
+  registerLanguages: [{ type: String, required: true }],
   rooms: [
     {
-      roomName: { type: String, required: false },
-      price: { type: Number, required: false },
-      unitType: { type: String, required: false },
-      roomsQuantity: { type: Number, required: false },
-      beds: [
-        {
-          bedType: { type: String, required: false },
-          bedQuantity: { type: Number, required: false },
+      id: { type: Number, required: true },
+      roomData: {
+        addPhotos: {
+          mainImage: [{ type: String, required: true }],
+          mainImage: [{ type: String, required: true }],
         },
-      ],
-      guestsLimit: { type: Number, required: false },
-      roomSize: {
-        unit: { type: String, required: false },
-        measurement: { type: Number, required: false },
+        bathroomDetails: {
+          bathroomItems: [{ type: String, required: true }],
+          privateBathroom: { type: String, required: true },
+        },
+        roomDetails: {
+          bunkBeds: { type: Number, required: true },
+          cribsAllowed: { type: String, required: true },
+          fullBeds: { type: Number, required: true },
+          guestsNumber: { type: Number, required: true },
+          kingBeds: { type: Number, required: true },
+          queenBeds: { type: Number, required: true },
+          roomSize: { type: String, required: true },
+          roomSizeUnit: { type: String, required: true },
+          sameTypeRooms: { type: Number, required: true },
+          smookingAllow: { type: String, required: true },
+          sofaBeds: { type: Number, required: true },
+          twinBeds: { type: Number, required: true },
+          unitType: { type: String, required: true },
+        },
+        roomFeatures: {
+          foodAndDrink: [{ type: String, required: true }],
+          generalAmenities: [{ type: String, required: true }],
+          mainView: { type: String, required: false },
+          outdoorsAndViews: [{ type: String, required: true }],
+        },
+        roomName: { type: String, required: true },
+        roomPrice: { type: String, required: true },
       },
-      smoking: { type: Boolean, required: false },
-      bathroomDetails: {
-        privateBathroom: { type: Boolean, required: false },
-        bathroomItems: [{ type: String, required: false }],
-      },
-      roomDetails: {
-        general: [{ type: String, required: false }],
-        outdoorAndView: [{ type: String, required: false }],
-        foodAndDrinks: [{ type: String, required: false }],
-      },
-      cancellationCostPolicy: { type: Number, required: false },
-      images: [{ type: String, required: false }],
-      thumbnail: { type: String, required: false },
     },
   ],
 })
 
-module.exports = hotelSchema;
+module.exports = hotelSchema

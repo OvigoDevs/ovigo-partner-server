@@ -12,7 +12,7 @@ const verifyToken = require("../middlewares/verifytoken.middleware")
 const router = express.Router()
 
 router.post("/signin", signin)
-router.post("/signup", verifyToken, signup)
+router.post("/signup", signup) // verifyToken @TODO
 router.post("/forget-password", forgetPassword)
 router.post("/reset-password", verifyToken, resetPassword)
 router.post("/refresh", verifyToken, refresh)
