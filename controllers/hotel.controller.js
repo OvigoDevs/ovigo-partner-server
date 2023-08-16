@@ -1,4 +1,5 @@
 const HotelModel = require("../models/hotel.model")
+const MaxID_generator = require("../utils/max-id-generator")
 
 // Get Hotel
 exports.getHotels = async (req, res) => {
@@ -7,14 +8,13 @@ exports.getHotels = async (req, res) => {
     console.log(hotels)
     if (hotels) {
       res.status(200).send({
-        message: "adsfad",
+        message: "Successfully hotel data fetch!",
         result: hotels,
       })
     } else {
       res.status(404).send({ message: "Hotels Not Found." })
     }
   } catch (error) {
-    // console.log(error)
     res.status(500).send({ message: "Something Went Wrong." })
   }
 }
@@ -22,14 +22,25 @@ exports.getHotels = async (req, res) => {
 // Create Hotel
 exports.createHotel = async (req, res) => {
   try {
-    console.log(req.body.rooms.at(0).roomData)
+    // create new hotel data
 
-    const newHotel = await HotelModel.create({ serviceId: 0, ...req.body })
+    const createNewHotelData = async (hotels) => {
+      const serviceId = MaxID_generator(hotels, 0) // @TODO need to generate ID
+      const newHotel = await HotelModel.create({ serviceId, ...req.body })
 
-    if (newHotel) {
-      res.status(200).send({ message: "Created.", newHotel })
+      if (newHotel) {
+        res.status(200).send({ message: "Created.", newHotel })
+      } else {
+        res.status(404).send({ message: "Hotel data not created." })
+      }
+    }
+
+    // checking previous hotels
+    const hotels = await HotelModel.find({})
+    if (hotels) {
+      createNewHotelData(hotels)
     } else {
-      res.status(404).send({ message: "Hotel Not Created." })
+      createNewHotelData([])
     }
   } catch (error) {
     console.log(error)

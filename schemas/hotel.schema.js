@@ -26,7 +26,7 @@ const hotelSchema = new mongoose.Schema({
     hotelRating: { type: String, required: true },
   },
   houseRules: {
-    petFee: { type: String, required: true },
+    petFee: { type: String, required: false },
     allowChildren: { type: String, required: true },
     allowPet: { type: String, required: true },
     checkinfrom: { type: String, required: true },
@@ -40,9 +40,9 @@ const hotelSchema = new mongoose.Schema({
   },
   parkingDetails: {
     available: { type: String, required: true },
-    located: { type: String, required: true },
-    reserve: { type: String, required: true },
-    type: { type: String, required: true },
+    located: { type: String, required: false },
+    reserve: { type: String, required: false },
+    type: { type: String, required: false },
   },
   popularFacilities: [{ type: String, required: true }],
   registerLanguages: [{ type: String, required: true }],
